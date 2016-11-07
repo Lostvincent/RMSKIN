@@ -24,7 +24,7 @@
             <span class="w20 fa fa-bell"></span> 修改个人资料</a>
         </li>
         <li class="dropdown-footer">
-          <a href="{{ url('auth/logout') }}" class="">
+          <a href="{{ url('admin/my/logout') }}" class="">
           <span class="fa fa-power-off pr5"></span> 登出 </a>
         </li>
       </ul>

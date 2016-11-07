@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'leve
     Route::get('/', 'HomeController@index');
     
     Route::get('my', 'MyController@edit');
+    Route::get('my/logout', 'MyController@logout');
     Route::put('my', 'MyController@update');
 
     Route::resource('skin', 'SkinController');

@@ -1,4 +1,5 @@
 @extends('layout.page')
+@section('title', '角色列表')
 
 @section('content')
 <div id="content">

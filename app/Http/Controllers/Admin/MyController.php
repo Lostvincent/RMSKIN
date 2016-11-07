@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,5 +29,12 @@ class MyController extends Controller
         ]);
         
         return redirect('admin');
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        return redirect('auth/login');
     }
 }
