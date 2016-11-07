@@ -15,6 +15,15 @@
 
          <form class="form-horizontal" role="form" action="{{ !empty($skin) ? url('admin/skin/'.$skin->id) : url('admin/skin') }}" method="POST" enctype="multipart/form-data">
             {!! csrf_field() !!}
+            @if (count($errors) > 0)
+              <div class="alert alert-danger alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </div>
+            @endif
+
             @if(!empty($skin))
               <div class="form-group">
                   <label class="col-lg-3 control-label">ID</label>
@@ -57,6 +66,7 @@
                </div>
              </div>
 
+             @if(empty($skin))
              <div class="form-group">
                <label for="skin" class="col-lg-3 control-label">文件</label>
                <div class="col-lg-8">
@@ -66,7 +76,6 @@
                </div>
              </div>
 
-             @if(!empty($skin))
              <div class="form-group">
                <label for="version" class="col-lg-3 control-label">版本</label>
                <div class="col-lg-8">

@@ -16,37 +16,11 @@
   <![endif]-->
 </head>
 
-<body class="admin-panels-page @yield('body_class')">
+<body class="admin-panels-page left0 @yield('body_class')">
   <div id="main">
-    @include('layout.header')
-    @include('layout.menu')
-    <section id="content_wrapper">
-      <header id="topbar" class="alt">
-        <div class="topbar-left">
-          <ol class="breadcrumb">
-            <li class="crumb-icon">
-              <a href="#">
-                <span class="glyphicon glyphicon-home"></span>
-              </a>
-            </li>
-            @if(!empty($breadcrumbs))
-              @foreach($breadcrumbs as $breadcrumb)
-                <li class="crumb-trail">{{$breadcrumb}}</li>
-              @endforeach
-            @endif
-          </ol>
-        </div>
-        <div class="topbar-right">
-          <div class="ml15 ib va-m" id="toggle_sidemenu_r">
-            <a href="#" class="pl5">
-              <i class="fa fa-sign-in fs22 text-primary"></i>
-            </a>
-          </div>
-        </div>
-      </header>
+    <section>
       @yield('content')
     </section>
-    @include('layout.sidebar')
   </div>
 </body>
 <script src="//cdn.jsdelivr.net/g/jquery@1.12.1,jquery.ui@1.11.4,jquery.pjax@1.9.5,nprogress@0.1.6"></script>

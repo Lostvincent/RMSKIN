@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('portal.index');
 });
 
 Route::get('test', 'Admin\HomeController@index');
@@ -21,12 +21,19 @@ Route::group(['namespace' => 'Portal'], function () {
     Route::get('skin/{skin_id}', 'SkinController@show');
     Route::post('skin/{skin_id}', 'SkinController@download');
 });
+
 Route::group(['prefix' => 'auth'], function () {
     Route::auth();
 });
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'level:2|auth'], function () {
     Route::get('/', 'HomeController@index');
+    
+    Route::get('my', 'MyController@edit');
+    Route::put('my', 'MyController@update');
+
     Route::resource('skin', 'SkinController');
+    
     Route::group(['middleware' => 'role:admin'], function () {
         Route::resource('user', 'UserController');
         Route::resource('role', 'RoleController');

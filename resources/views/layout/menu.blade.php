@@ -2,6 +2,7 @@
   <div class="sidebar-left-content nano-content">
     <ul class="nav sidebar-menu">
       <li class="sidebar-label pt15">系统</li>
+      @role('admin')
       <li>
         <a href="{{ url('admin/user') }}">
           <span class="fa fa-user"></span>
@@ -14,6 +15,7 @@
           <span class="sidebar-title">角色</span>
         </a>
       </li>
+      @endrole
       <li>
         <a href="{{ url('admin/skin') }}">
           <span class="glyphicon glyphicon-book"></span>

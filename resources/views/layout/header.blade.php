@@ -14,18 +14,18 @@
   <ul class="nav navbar-nav navbar-right">
     <li class="dropdown menu-merge">
       <a href="#" class="dropdown-toggle fw600 p15" data-toggle="dropdown">
-        <img src="#" alt="avatar" class="mw30 br64">
+        {{-- <img src="#" alt="avatar" class="mw30 br64"> --}}
         <span class="hidden-xs pl15"> {{ !empty(Auth::user()) ? Auth::user()->name : '' }} </span>
         <span class="caret caret-tp hidden-xs"></span>
       </a>
       <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
         <li class="list-group-item">
-          <a href="#" class="animated animated-short fadeInUp">
-            <span class="w20 fa fa-bell"></span> keep for feature</a>
+          <a href="{{ url('admin/my') }}" class="animated animated-short fadeInUp">
+            <span class="w20 fa fa-bell"></span> 修改个人资料</a>
         </li>
         <li class="dropdown-footer">
-          <a href="{{ url('logout') }}" class="">
-          <span class="fa fa-power-off pr5"></span> {{ trans('view.logout') }} </a>
+          <a href="{{ url('auth/logout') }}" class="">
+          <span class="fa fa-power-off pr5"></span> 登出 </a>
         </li>
       </ul>
     </li>

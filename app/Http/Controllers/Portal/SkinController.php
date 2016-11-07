@@ -10,8 +10,9 @@ class SkinController extends Controller
 {
     public function show($skin_id)
     {
-        //
-        return view('portal.skin.show');
+        $skin = Skin::findOrFail($skin_id);
+
+        return view('portal.skin.show', ['skin' => $skin]);
     }
 
     public function download(Request $request, $skin_id)
@@ -31,6 +32,6 @@ class SkinController extends Controller
             }
         }
 
-        return response()->download();
+        return response()->download(storage_path('app/public/skins/'.$skin->id.'.'.$skin->mime));
     }
 }

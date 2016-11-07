@@ -7,6 +7,9 @@
       <div class="panel-heading">
         <span class="panel-title">
           <span class="fa fa-table"></span>皮肤列表</span>
+        <div class="pull-right hidden-xs">
+          <span><a href="{{ url('admin/skin/create') }}">创建皮肤</a></span>
+        </div>
       </div>
       <div class="panel-body pn">
         <div class="bs-component">
@@ -30,7 +33,7 @@
                 <td>{{ $skin->version }}</td>
                 <td>{!! $skin->is_available ? '<span class="fa fa-check"></span>' : '<span class="fa fa-times"></span>' !!}</td>
                 <td>
-                  <a href="{{ url('skin/'.$skin->id.'/edit') }}">编辑</a>
+                  <a href="{{ url('admin/skin/'.$skin->id.'/edit') }}">编辑</a>
                 </td>
               </tr>
               @endforeach
@@ -39,5 +42,6 @@
       </div>
   </div>
 </div>
+<div class="text-right">{!! $skins->render() !!}</div>
 </div>
 @endsection
