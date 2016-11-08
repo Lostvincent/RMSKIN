@@ -112,7 +112,7 @@
                <div class="col-lg-8">
                  <div class="bs-component">
                   <div class="switch switch-info switch-inline">
-                    <input id="is_public" type="checkbox" value="1" name="is_public" {{ !empty($skin) ? $skin->is_public ? 'checked': '' : old('is_public') ? 'checked' : '' }}>
+                    <input id="is_public" type="checkbox" value="1" name="is_public" {{ !empty($skin) ? empty($skin->code) ? 'checked': '' : old('is_public') ? 'checked' : '' }}>
                     <label for="is_public"></label>
                   </div>
                  </div>

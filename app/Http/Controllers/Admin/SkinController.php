@@ -23,22 +23,22 @@ class SkinController extends Controller
 
     public function show(Request $request, $skin_id)
     {
-        $skin = new Skin;
+        $skin = Skin::where('id', $skin_id);
         if (!$request->user()->isRole('admin')) {
             $skin = $skin->where('user_id', $request->user()->id);
         }
-        $skin = $skin->firstOrFail($skin_id);
+        $skin = $skin->firstOrFail();
 
         return view('admin.skin.show', ['skin' => $skin]);
     }
 
     public function edit(Request $request, $skin_id)
     {
-        $skin = new Skin;
+        $skin = Skin::where('id', $skin_id);
         if (!$request->user()->isRole('admin')) {
             $skin = $skin->where('user_id', $request->user()->id);
         }
-        $skin = $skin->firstOrFail($skin_id);
+        $skin = $skin->firstOrFail();
 
         return view('admin.skin.show', ['skin' => $skin]);
     }
@@ -61,7 +61,7 @@ class SkinController extends Controller
         ]);
 
         $token = '';
-        if ($request->has('is_public')) {
+        if (!$request->has('is_public')) {
             $token = str_random(100);
         }
 
@@ -95,7 +95,7 @@ class SkinController extends Controller
         ]);
 
         $token = '';
-        if ($request->has('is_public')) {
+        if (!$request->has('is_public')) {
             $token = str_random(100);
         }
 
