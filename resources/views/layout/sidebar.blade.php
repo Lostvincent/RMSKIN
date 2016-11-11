@@ -56,7 +56,7 @@
                 <i class="fa fa-caret-up"></i> 25.6% </h3>
             </div>
           </div>
-          <h5 class="title-divider text-muted mt25 mb10">{{ trans('view.server') }} Response</h5>
+          <h5 class="title-divider text-muted mt25 mb10"> Response</h5>
           <div class="row">
             <div class="col-xs-5">
               <h3 class="text-primary mn pl5">82.5</h3>
@@ -66,7 +66,7 @@
                 <i class="fa fa-caret-down"></i> 17.9% </h3>
             </div>
           </div>
-          <h5 class="title-divider text-muted mt40 mb20"> {{ trans('view.server') }} Statistics
+          <h5 class="title-divider text-muted mt40 mb20"> Statistics
             <span class="pull-right text-primary fw600">USA</span>
           </h5>
         </div>

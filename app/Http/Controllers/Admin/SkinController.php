@@ -113,13 +113,14 @@ class SkinController extends Controller
         return redirect('admin/skin');
     }
 
-    public function destory(Request $request, $skin_id)
-    {
-        $skin = Skin::findOrFail($skin_id);
-        if ($skin->user_id == $request->user()->id) {
-            $skin->delete();
-        }
+    // public function destory(Request $request, $skin_id)
+    // {
+    //     $skin = Skin::findOrFail($skin_id);
+    //     if ($skin->user_id == $request->user()->id) {
+    //         unlink(storage_path('app/public/skins'), $skin->id.'.'.$file->extension());
+    //         $skin->delete();
+    //     }
 
-        return redirect('admin/skin');
-    }
+    //     return redirect('admin/skin');
+    // }
 }

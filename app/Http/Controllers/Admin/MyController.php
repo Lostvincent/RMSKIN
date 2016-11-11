@@ -21,7 +21,7 @@ class MyController extends Controller
         ]);
 
         if ($request->input('password')) {
-            $user->update('password', bcrypt($request->input('password')));
+            $request->user()->update(['password' => bcrypt($request->input('password'))]);
         }
 
         $request->user()->update([

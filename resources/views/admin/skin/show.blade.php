@@ -119,6 +119,16 @@
                </div>
              </div>
 
+             <div class="form-group">
+                <label class="col-lg-3 control-label">注意</label>
+                <div class="col-lg-8">
+                    <div class="bs-component">
+                        <p class="form-control-static text-muted">皮肤文件上传后<b style="color:red">不可修改</b>，请仔细检查是否有误</p>
+                        <p class="form-control-static text-muted">皮肤<b style="color:red">不可删除</b>，<b style="color:red">可关闭下载</b>，创建请谨慎</p>
+                    </div>
+                </div>
+              </div>
+
              <div class="text-right">
                <button type="submit" class="btn btn-default ph25">提交</button>
              </div>

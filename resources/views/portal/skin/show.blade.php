@@ -21,16 +21,7 @@
                 @endforeach
             </div>
           @endif
-
-            <div class="form-group">
-              <label class="col-lg-3 control-label">ID</label>
-              <div class="col-lg-7">
-                <div class="bs-component">
-                  <p class="form-control-static text-muted">{{ $skin->id }}</p>
-                </div>
-              </div>
-            </div>
-
+          
             <div class="form-group">
               <label class="col-lg-3 control-label">名称</label>
               <div class="col-lg-7">
@@ -41,10 +32,10 @@
             </div>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">描述</label>
+              <label class="col-lg-3 control-label">作者</label>
               <div class="col-lg-7">
                 <div class="bs-component">
-                  <p class="form-control-static text-muted">{{ $skin->description }}</p>
+                  <p class="form-control-static text-muted">{{ !empty($user) ? $user->name : $skin->user_id }}</p>
                 </div>
               </div>
             </div>
@@ -58,15 +49,26 @@
               </div>
             </div>
 
+            <div class="form-group">
+              <label class="col-lg-3 control-label">描述</label>
+              <div class="col-lg-7">
+                <div class="bs-component">
+                  <p class="form-control-static text-muted">{{ $skin->description }}</p>
+                </div>
+              </div>
+            </div>
+
             @if($skin->is_available)
-              <div class="form-group">
-               <label for="code" class="col-lg-3 control-label">下载码</label>
-               <div class="col-lg-7">
-                 <div class="bs-component">
-                   <input type="text" id="code" name="code" class="form-control" placeholder="选填" value="{{ old('code') }}">
-                 </div>
-               </div>
-             </div>
+            @if(!empty($skin->code))
+            <div class="form-group">
+              <label for="code" class="col-lg-3 control-label">下载码</label>
+              <div class="col-lg-7">
+                <div class="bs-component">
+                  <input type="text" id="code" name="code" class="form-control" placeholder="选填" value="{{ old('code') }}">
+                </div>
+              </div>
+            </div>
+            @endif
 
              <div class="text-right">
                <button type="submit" class="btn btn-default ph25">下载</button>

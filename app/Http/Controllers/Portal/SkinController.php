@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use Cache;
+use App\Models\User;
 use App\Models\Skin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,9 +13,10 @@ class SkinController extends Controller
     public function show($skin_id)
     {
         $skin = Skin::findOrFail($skin_id);
-        $skin->increment('views');
+        $user = User::find($skin->user_id);
 
-        return view('portal.skin.show', ['skin' => $skin]);
+        $skin->increment('views');
+        return view('portal.skin.show', ['skin' => $skin, 'user' => $user]);
     }
 
     public function download(Request $request, $skin_id)

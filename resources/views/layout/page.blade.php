@@ -9,7 +9,6 @@
   <link rel="stylesheet" type="text/css" href="{{ asset('assets/admin-tools/admin-forms/css/admin-forms.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('vendor/plugins/fancytree/skin-win8/ui.fancytree.min.css') }}">
   <link rel="stylesheet" type="text/css" href="{{ asset('vendor/plugins/nestable/nestable.css') }}">
-  <link rel="stylesheet" href="{{ asset('assets/css/nprogress.css') }}">
   <link rel="shortcut icon" href="{{ asset('assets/img/favicon.ico') }}">
   <!--[if lt IE 9]>
     <script src="//cdn.jsdelivr.net/g/html5shiv@3.7.3,respond@1.4.2"></script>
@@ -54,4 +53,29 @@
 <script src="{{ asset('assets/admin-tools/admin-forms/js/jquery-ui-datepicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+  "use strict";
+  Core.init();
+  Custom.init();
+  jQuery(document).pjax('a', '#content_wrapper');
+  jQuery(document).on('submit', 'form', function(event) {
+    jQuery.pjax.submit(event, '#content_wrapper');
+  });
+  jQuery(document).on('pjax:start', function() {
+    NProgress.start();
+  });
+  jQuery(document).on('pjax:end', function() {
+    Core.init();
+    Custom.init();
+    NProgress.done();
+  });
+});
+function toggleCheckbox(source, position) {
+  checkboxes = document.getElementsByClassName(position + '_check');
+  for(var i=0, n=checkboxes.length;i<n;i++) {
+    checkboxes[i].checked = source.checked;
+  }
+}
+</script>
 </html>

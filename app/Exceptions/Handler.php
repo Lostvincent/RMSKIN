@@ -47,6 +47,12 @@ class Handler extends ExceptionHandler
         if ($exception instanceof \Bican\Roles\Exceptions\RoleDeniedException) {
             return redirect()->back();
         }
+        if ($exception instanceof \Bican\Roles\Exceptions\PermissionDeniedException) {
+            return redirect()->back();
+        }
+        if ($exception instanceof \Bican\Roles\Exceptions\LevelDeniedException) {
+            return redirect()->back();
+        }
 
         if ($exception instanceof ModelNotFoundException) {
             $exception = new NotFoundHttpException($exception->getMessage(), $exception);

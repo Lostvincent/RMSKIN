@@ -33,7 +33,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'leve
     Route::get('my/logout', 'MyController@logout');
     Route::put('my', 'MyController@update');
 
-    Route::resource('skin', 'SkinController');
+    Route::resource('skin', 'SkinController', ['except' => 'destory']);
     
     Route::group(['middleware' => 'role:admin'], function () {
         Route::resource('user', 'UserController');
