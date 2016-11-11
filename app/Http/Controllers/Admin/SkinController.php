@@ -75,10 +75,10 @@ class SkinController extends Controller
                 'version'       =>  $request->has('version') ? $request->input('version') : Carbon::now()->format('YmdHis'),
                 'is_available'  =>  $request->input('is_available', 0),
                 'code'          =>  $token,
-                'mime'          =>  $file->extension()
+                'mime'          =>  $file->getClientOriginalExtension()
             ]);
 
-            $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->extension());
+            $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->getClientOriginalExtension());
         }
 
         return redirect('admin/skin');
