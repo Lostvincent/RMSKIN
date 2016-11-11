@@ -5,19 +5,19 @@
   {!! csrf_field() !!}
   <div class="panel-body bg-light p30">
     @if (count($errors) > 0)
-          <div class="alert alert-danger alert-dismissable">
-            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-          </div>
+        <div class="alert alert-danger alert-dismissable">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            @foreach ($errors->all() as $error)
+              <li>{{ $error }}</li>
+            @endforeach
+        </div>
       @endif
     <div class="row">
       <div class="col-sm-12 pr30">
         <div class="section">
-          <label for="email" class="field-label text-muted fs18 mb10">Username</label>
+          <label for="email" class="field-label text-muted fs18 mb10">Email</label>
           <label for="email" class="field prepend-icon">
-            <input type="text" name="email" id="email" class="gui-input" placeholder="Enter youremail">
+            <input type="text" name="email" id="email" class="gui-input" placeholder="Enter your email">
             <label for="email" class="field-icon">
               <i class="fa fa-user"></i>
             </label>

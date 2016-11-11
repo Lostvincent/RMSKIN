@@ -45,13 +45,13 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $exception)
     {
         if ($exception instanceof \Bican\Roles\Exceptions\RoleDeniedException) {
-            return redirect()->back();
+            return redirect('/');
         }
         if ($exception instanceof \Bican\Roles\Exceptions\PermissionDeniedException) {
-            return redirect()->back();
+            return redirect('/');
         }
         if ($exception instanceof \Bican\Roles\Exceptions\LevelDeniedException) {
-            return redirect()->back();
+            return redirect('/');
         }
 
         if ($exception instanceof ModelNotFoundException) {
