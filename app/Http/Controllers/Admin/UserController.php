@@ -66,7 +66,7 @@ class UserController extends Controller
 
         $user = User::findOrFail($user_id);
         if ($request->input('password')) {
-            $user->update('password', bcrypt($request->input('password')));
+            $user->update(['password' => bcrypt($request->input('password'))]);
         }
 
         $user->detachAllRoles();
