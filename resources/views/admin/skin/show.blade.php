@@ -119,6 +119,7 @@
                </div>
              </div>
 
+             @if(empty($skin))
              <div class="form-group">
                 <label class="col-lg-3 control-label">注意</label>
                 <div class="col-lg-8">
@@ -128,6 +129,7 @@
                     </div>
                 </div>
               </div>
+              @endif
 
              <div class="text-right">
                <button type="submit" class="btn btn-default ph25">提交</button>
