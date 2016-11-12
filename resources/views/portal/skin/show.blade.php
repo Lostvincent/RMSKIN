@@ -32,7 +32,7 @@
             </div>
 
             <div class="form-group">
-              <label class="col-lg-3 control-label">作者</label>
+              <label class="col-lg-3 control-label">上传者</label>
               <div class="col-lg-7">
                 <div class="bs-component">
                   <p class="form-control-static text-muted">{{ !empty($user) ? $user->name : $skin->user_id }}</p>
