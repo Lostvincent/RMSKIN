@@ -94,12 +94,14 @@ class SkinController extends Controller
             'is_public'     =>  'boolean'
         ]);
 
-        $token = '';
-        if (!$request->has('is_public')) {
-            $token = str_random(100);
-        }
-
         $skin = Skin::findOrFail($skin_id);
+
+        $token = $skin->code;
+        if (empty($token) && !$request->has('is_public')) {
+            $token = str_random(100);
+        } elseif ($request->has('is_public')) {
+            $token = '';
+        }
 
         if ($skin->user_id == $request->user()->id) {
             $skin->update([
