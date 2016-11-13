@@ -13,7 +13,7 @@ class SkinController extends Controller
     public function index(Request $request)
     {
         $skins = new Skin;
-        if (!$request->user()->isRole('admin')) {
+        if (!$request->user()->isRole('admin|helper')) {
             $skins = $skins->where('user_id', $request->user()->id);
         }
         $skins = $skins->orderBy('id', 'DESC')->paginate(10);
@@ -24,7 +24,7 @@ class SkinController extends Controller
     public function show(Request $request, $skin_id)
     {
         $skin = Skin::where('id', $skin_id);
-        if (!$request->user()->isRole('admin')) {
+        if (!$request->user()->isRole('admin|helper')) {
             $skin = $skin->where('user_id', $request->user()->id);
         }
         $skin = $skin->firstOrFail();
@@ -35,7 +35,7 @@ class SkinController extends Controller
     public function edit(Request $request, $skin_id)
     {
         $skin = Skin::where('id', $skin_id);
-        if (!$request->user()->isRole('admin')) {
+        if (!$request->user()->isRole('admin|helper')) {
             $skin = $skin->where('user_id', $request->user()->id);
         }
         $skin = $skin->firstOrFail();
@@ -103,7 +103,7 @@ class SkinController extends Controller
             $token = '';
         }
 
-        if ($skin->user_id == $request->user()->id) {
+        if ($skin->user_id == $request->user()->id || $request->user()->isRole('admin|helper')) {
             $skin->update([
                 'name'          =>  $request->input('name'),
                 'description'   =>  $request->input('description'),
