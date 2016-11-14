@@ -53,7 +53,7 @@
               <label class="col-lg-3 control-label">描述</label>
               <div class="col-lg-7">
                 <div class="bs-component">
-                  <p class="form-control-static text-muted">{{ $skin->description }}</p>
+                  <p class="form-control-static text-muted">{!! str_replace("\r\n", "<br>", $skin->description) !!}</p>
                 </div>
               </div>
             </div>
