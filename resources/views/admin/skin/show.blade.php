@@ -66,6 +66,15 @@
                </div>
              </div>
 
+             <div class="form-group">
+               <label for="cover" class="col-lg-3 control-label">封面</label>
+               <div class="col-lg-8">
+                 <div class="bs-component">
+                   <input type="file" id="cover" name="cover" class="form-control">
+                 </div>
+               </div>
+             </div>
+
              @if(empty($skin))
              <div class="form-group">
                <label for="skin" class="col-lg-3 control-label">文件</label>

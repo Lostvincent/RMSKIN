@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::get('test', 'Admin\HomeController@index');
 
 Route::group(['namespace' => 'Portal'], function () {
+    Route::get('skin', 'SkinController@index');
     Route::get('skin/{skin_id}', 'SkinController@show');
     Route::post('skin/{skin_id}', 'SkinController@download');
 });

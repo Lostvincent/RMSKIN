@@ -162,13 +162,13 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
         /*
          * Package Service Providers...
          */
 
         //
         Bican\Roles\RolesServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
         
         /*
          * Application Service Providers...
@@ -228,6 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Carbon' => Carbon\Carbon::class,
+        'ImageTool' => Intervention\Image\Facades\Image::class,
     ],
 
 ];

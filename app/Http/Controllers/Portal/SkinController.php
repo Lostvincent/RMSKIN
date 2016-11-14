@@ -10,6 +10,17 @@ use App\Http\Controllers\Controller;
 
 class SkinController extends Controller
 {
+    public function index(Request $request)
+    {
+        // $this->validate($request, [
+        //     ''
+        // ]);
+
+        $skins = Skin::orderBy('id', 'DESC')->paginate(10);
+
+        return view('portal.skin.index', ['skins' => $skins]);
+    }
+
     public function show($skin_id)
     {
         $skin = Skin::findOrFail($skin_id);

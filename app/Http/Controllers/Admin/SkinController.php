@@ -53,7 +53,7 @@ class SkinController extends Controller
         $this->validate($request, [
             'name'          =>  'required|alpha_dash',
             'description'   =>  'string',
-            // 'cover'         =>  'image',
+            'cover'         =>  'image',
             'version'       =>  'string',
             'is_available'  =>  'boolean',
             'is_public'     =>  'boolean',
@@ -78,6 +78,11 @@ class SkinController extends Controller
                 'mime'          =>  $file->getClientOriginalExtension()
             ]);
 
+            if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+                $cover = ImageTool::make($request->file('cover'));
+                $cover->resize(100, 100)->save(public_path('covers/'.$skin->id.'.jpg'));
+            }
+
             $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->getClientOriginalExtension());
         }
 
@@ -89,7 +94,7 @@ class SkinController extends Controller
         $this->validate($request, [
             'name'          =>  'required|alpha_dash',
             'description'   =>  'string',
-            // 'cover'         =>  'image',
+            'cover'         =>  'image',
             'is_available'  =>  'boolean',
             'is_public'     =>  'boolean'
         ]);
@@ -104,6 +109,11 @@ class SkinController extends Controller
         }
 
         if ($skin->user_id == $request->user()->id || $request->user()->isRole('admin|helper')) {
+            if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+                $cover = ImageTool::make($request->file('cover'));
+                $cover->resize(100, 100)->save(public_path('covers/'.$skin->id.'.jpg'));
+            }
+
             $skin->update([
                 'name'          =>  $request->input('name'),
                 'description'   =>  $request->input('description'),
