@@ -13,7 +13,7 @@
          </div>
          <div class="panel-body">
 
-         <form class="form-horizontal" id="upload-form" role="form" action="{{ !empty($skin) ? url('admin/skin/'.$skin->id) : '#' }}" enctype="multipart/form-data">
+         <form class="form-horizontal" id="upload-form" role="form" action="{{ !empty($skin) ? url('admin/skin/'.$skin->id) : '#' }}" {{ !empty($skin) ? 'method=POST' : '' }} enctype="multipart/form-data">
             @if (count($errors) > 0)
               <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
