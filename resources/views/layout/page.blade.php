@@ -44,6 +44,16 @@
         </div>
       </header>
       @yield('content')
+      <script>
+      var csrf_token = '{!! csrf_token() !!}';
+      @if (count($errors) > 0)
+          @foreach ($errors->all() as $error)
+              toastr.error('{{ $error }}');
+          @endforeach
+      @elseif (session('status'))
+        toastr.success('{{ session('status') }}');
+      @endif
+      </script>
     </section>
     @include('layout.sidebar')
   </div>

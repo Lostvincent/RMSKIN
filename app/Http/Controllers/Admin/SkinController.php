@@ -99,7 +99,7 @@ class SkinController extends Controller
     public function update(Request $request, $skin_id)
     {
         $this->validate($request, [
-            'name'          =>  'required|alpha_dash',
+            'name'          =>  'required|string',
             'version'       =>  'string',
             'description'   =>  'string',
             'is_available'  =>  'boolean',
