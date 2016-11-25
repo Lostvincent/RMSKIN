@@ -165,6 +165,7 @@ class SkinController extends Controller
                 'name'          =>  $request->name,
                 'version'       =>  Carbon::now()->format('YmdHis'),
                 'is_available'  =>  0,
+                'code'          =>  str_random(100)
             ]);
             return response()->json(['code' => 200, 'key' => $request->key, 'hash' => $request->hash, 'skin_id' => $skin->id]);
         }
