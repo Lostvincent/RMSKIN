@@ -43,7 +43,7 @@ var Custom = function() {
                             type: 'POST',
                             success: function(ret){
                                 if(ret.code == 200) {
-                                    window.location.href = '/skin/'+ret.skin_id;
+                                    window.location.href = '/admin/skin/'+ret.skin_id+'/edit';
                                 }
                             }
                         });
@@ -58,7 +58,7 @@ var Custom = function() {
         init: function() {
             var route = window.location.pathname.substr(1);
             runGlobal();
-            if (route == 'upload') {
+            if (route == 'admin/skin/create') {
                 runUpload();
             } else if (/^admin\/wechat\/menu$/.test(route)) {
                 runFancyTreeMenu();

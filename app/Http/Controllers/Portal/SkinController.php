@@ -12,10 +12,6 @@ class SkinController extends Controller
 {
     public function index(Request $request)
     {
-        // $this->validate($request, [
-        //     ''
-        // ]);
-
         $skins = Skin::orderBy('id', 'DESC')->paginate(10);
 
         return view('portal.skin.index', ['skins' => $skins]);
@@ -55,6 +51,6 @@ class SkinController extends Controller
         Cache::put('ip_'.$request->ip(), $times + 1, 15);
         $skin->increment('downloads');
 
-        return response()->download(storage_path('app/public/skins/'.$skin->id.'.'.$skin->mime));
+        return redirect($skin->path);
     }
 }

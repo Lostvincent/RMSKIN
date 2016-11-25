@@ -13,8 +13,7 @@
          </div>
          <div class="panel-body">
 
-         <form class="form-horizontal" role="form" action="{{ !empty($skin) ? url('admin/skin/'.$skin->id) : url('admin/skin') }}" method="POST" enctype="multipart/form-data">
-            {!! csrf_field() !!}
+         <form class="form-horizontal" id="upload-form" role="form" action="{{ !empty($skin) ? url('admin/skin/'.$skin->id) : '#' }}" enctype="multipart/form-data">
             @if (count($errors) > 0)
               <div class="alert alert-danger alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -34,15 +33,6 @@
                   </div>
               </div>
 
-              <div class="form-group">
-                  <label class="col-lg-3 control-label">版本</label>
-                  <div class="col-lg-8">
-                      <div class="bs-component">
-                          <p class="form-control-static text-muted">{{ $skin->version }}</p>
-                      </div>
-                  </div>
-              </div>
-
               @if(!empty($skin->code))
               <div class="form-group">
                   <label class="col-lg-3 control-label">下载码</label>
@@ -53,20 +43,11 @@
                   </div>
               </div>
               @endif
-              
+
+              {!! csrf_field() !!}
               <input type="hidden" name="_method" value="PUT">
-            @endif
 
-             <div class="form-group">
-               <label for="name" class="col-lg-3 control-label">名称</label>
-               <div class="col-lg-8">
-                 <div class="bs-component">
-                   <input type="text" id="name" name="name" class="form-control" value="{{ !empty($skin) ? $skin->name : old('name') }}">
-                 </div>
-               </div>
-             </div>
-
-             <div class="form-group">
+              <div class="form-group">
                <label for="cover" class="col-lg-3 control-label">封面</label>
                <div class="col-lg-8">
                  <div class="bs-component">
@@ -75,12 +56,11 @@
                </div>
              </div>
 
-             @if(empty($skin))
-             <div class="form-group">
-               <label for="skin" class="col-lg-3 control-label">文件</label>
+              <div class="form-group">
+               <label for="name" class="col-lg-3 control-label">名称</label>
                <div class="col-lg-8">
                  <div class="bs-component">
-                   <input type="file" id="skin" name="skin" class="form-control">
+                   <input type="text" id="name" name="name" class="form-control" value="{{ !empty($skin) ? $skin->name : old('name') }}">
                  </div>
                </div>
              </div>
@@ -93,7 +73,6 @@
                  </div>
                </div>
              </div>
-             @endif
 
              <div class="form-group">
                <label for="description" class="col-lg-3 control-label">描述</label>
@@ -127,13 +106,26 @@
                  </div>
                </div>
              </div>
+            @endif
+
+             @if(empty($skin))
+             <form id="upload-form" class="form-horizontal" role="form" method="POST">
+             <div class="form-group">
+               <label for="file" class="col-lg-3 control-label">文件</label>
+               <div class="col-lg-8">
+                 <div class="bs-component">
+                   <input type="file" id="file" name="file" class="form-control" required="required" accept=".zip,.rar,.7z,.rmskin">
+                 </div>
+               </div>
+             </div>
+             @endif
 
              @if(empty($skin))
              <div class="form-group">
                 <label class="col-lg-3 control-label">注意</label>
                 <div class="col-lg-8">
                     <div class="bs-component">
-                        <p class="form-control-static text-muted">皮肤文件上传后<b style="color:red">不可修改</b>，请仔细检查是否有误</p>
+                        <p class="form-control-static text-muted">皮肤文件上传大小限制<b style="color:red">30M</b></p>
                         <p class="form-control-static text-muted">皮肤<b style="color:red">不可删除</b>，<b style="color:red">可关闭下载</b>，创建请谨慎</p>
                     </div>
                 </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Storage;
 use Carbon;
 use ImageTool;
 use App\Models\Skin;
@@ -10,6 +11,12 @@ use App\Http\Controllers\Controller;
 
 class SkinController extends Controller
 {
+    protected $disk;
+    public function __construct(Request $request)
+    {
+        $this->disk = Storage::disk('skin');
+    }
+
     public function index(Request $request)
     {
         $skins = new Skin;
@@ -48,53 +55,53 @@ class SkinController extends Controller
         return view('admin.skin.show');
     }
 
-    public function store(Request $request)
-    {
-        $this->validate($request, [
-            'name'          =>  'required|alpha_dash',
-            'description'   =>  'string',
-            'cover'         =>  'image',
-            'version'       =>  'string',
-            'is_available'  =>  'boolean',
-            'is_public'     =>  'boolean',
-            'skin'          =>  'required|file|mimes:rar,7z,zip,rmskin'
-        ]);
+    // public function store(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'name'          =>  'required|alpha_dash',
+    //         'description'   =>  'string',
+    //         'cover'         =>  'image',
+    //         'version'       =>  'string',
+    //         'is_available'  =>  'boolean',
+    //         'is_public'     =>  'boolean',
+    //         'skin'          =>  'required|file|mimes:rar,7z,zip,rmskin'
+    //     ]);
 
-        $token = '';
-        if (!$request->has('is_public')) {
-            $token = str_random(100);
-        }
+    //     $token = '';
+    //     if (!$request->has('is_public')) {
+    //         $token = str_random(100);
+    //     }
 
-        $file = $request->file('skin');
+    //     $file = $request->file('skin');
 
-        if ($file->isValid()) {
-            $skin = Skin::create([
-                'name'          =>  $request->input('name'),
-                'description'   =>  $request->input('description'),
-                'user_id'       =>  $request->user()->id,
-                'version'       =>  $request->has('version') ? $request->input('version') : Carbon::now()->format('YmdHis'),
-                'is_available'  =>  $request->input('is_available', 0),
-                'code'          =>  $token,
-                'mime'          =>  $file->getClientOriginalExtension()
-            ]);
+    //     if ($file->isValid()) {
+    //         $skin = Skin::create([
+    //             'name'          =>  $request->input('name'),
+    //             'description'   =>  $request->input('description'),
+    //             'user_id'       =>  $request->user()->id,
+    //             'version'       =>  $request->has('version') ? $request->input('version') : Carbon::now()->format('YmdHis'),
+    //             'is_available'  =>  $request->input('is_available', 0),
+    //             'code'          =>  $token,
+    //             'mime'          =>  $file->getClientOriginalExtension()
+    //         ]);
 
-            if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-                $cover = ImageTool::make($request->file('cover'));
-                $cover->resize(100, 100)->save(public_path('covers/'.$skin->id.'.jpg'));
-            }
+    //         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
+    //             $cover = ImageTool::make($request->file('cover'));
+    //             $cover->resize(100, 100)->save(public_path('covers/'.$skin->id.'.jpg'));
+    //         }
 
-            $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->getClientOriginalExtension());
-        }
+    //         $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->getClientOriginalExtension());
+    //     }
 
-        return redirect('admin/skin');
-    }
+    //     return redirect('admin/skin');
+    // }
 
     public function update(Request $request, $skin_id)
     {
         $this->validate($request, [
             'name'          =>  'required|alpha_dash',
+            'version'       =>  'string',
             'description'   =>  'string',
-            'cover'         =>  'image',
             'is_available'  =>  'boolean',
             'is_public'     =>  'boolean'
         ]);
@@ -116,6 +123,7 @@ class SkinController extends Controller
 
             $skin->update([
                 'name'          =>  $request->input('name'),
+                'version'       =>  $request->input('version'),
                 'description'   =>  $request->input('description'),
                 'is_available'  =>  $request->input('is_available', 0),
                 'code'          =>  $token
@@ -135,4 +143,31 @@ class SkinController extends Controller
 
     //     return redirect('admin/skin');
     // }
+
+
+    public function token(Request $request)
+    {
+        $up_token = $this->disk->getDriver()->uploadToken(null, 1800, [
+                'callbackUrl'  => 'http://rmskin.net/upload/callback',
+                'callbackBody' => 'key=$(key)&hash=$(etag)&name=$(fname)&mimeType=$(mimeType)&user_id='.$request->user()->id,
+                'saveKey'      => 'skin/$(year)$(mon)$(day)$(hour)$(min)$(sec)_$(etag)$(ext)',
+                'fsizeLimit'   => 31457280,
+            ], false);
+        return response()->json(['code' => 200, 'up_token' => $up_token]);
+    }
+
+    public function callback(Request $request)
+    {
+        if ($this->disk->getDriver()->verifyCallback('application/x-www-form-urlencoded', $request->header('Authorization'), 'http://rmskin.net/upload/callback', $request->getContent())) {
+            $skin = Skin::create([
+                'user_id'       =>  $request->user_id,
+                'path'          =>  $request->key,
+                'name'          =>  $request->name,
+                'version'       =>  Carbon::now()->format('YmdHis'),
+                'is_available'  =>  0,
+            ]);
+            return response()->json(['code' => 200, 'key' => $request->key, 'hash' => $request->hash, 'skin_id' => $skin->id]);
+        }
+        return abort(404);
+    }
 }
