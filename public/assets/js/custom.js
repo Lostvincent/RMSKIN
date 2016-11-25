@@ -42,7 +42,9 @@ var Custom = function() {
                             processData: false,
                             type: 'POST',
                             success: function(ret){
-                                console.log(ret);
+                                if(ret.code == 200) {
+                                    window.location.href = '/skin/'+ret.skin_id;
+                                }
                             }
                         });
                     }
