@@ -34,7 +34,7 @@ class HomeController extends Controller
                 'callbackUrl'  => 'http://rmskin.net/upload/callback',
                 'callbackBody' => 'key=$(key)&hash=$(etag)&name=$(fname)&mimeType=$(mimeType)&user_id='.$request->user()->id,
                 'saveKey'      => 'skin/$(year)$(mon)$(day)$(hour)$(min)$(sec)_$(etag)$(ext)',
-                'fsizeLimit'   => 4194304,
+                'fsizeLimit'   => 31457280,
             ], false);
         return response()->json(['code' => 200, 'up_token' => $up_token]);
     }
@@ -49,7 +49,7 @@ class HomeController extends Controller
                 'version'       =>  Carbon::now()->format('YmdHis'),
                 'is_available'  =>  0,
             ]);
-            Log::info(print_r($request, true));
+            // Log::info(print_r($request, true));
             return response()->json(['code' => 200, 'key' => $request->key, 'hash' => $request->hash, 'skin_id' => $skin->id]);
         }
         return abort(404);

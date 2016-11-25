@@ -33,7 +33,7 @@ var Custom = function() {
                     if (data.code == 200) {
                         var formData = new FormData();
                         formData.append('token', data.up_token);
-                        formData.append('file', $('#file'));
+                        formData.append('file', $('#file')[0].files[0]);
                         $.ajax({
                             url: 'http://upload.qiniu.com/',
                             data: formData,
