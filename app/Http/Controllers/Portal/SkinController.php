@@ -51,6 +51,6 @@ class SkinController extends Controller
         Cache::put('ip_'.$request->ip(), $times + 1, 15);
         $skin->increment('downloads');
 
-        return redirect($skin->path);
+        return redirect(config('filesystems.disks.skin.domains.default').'/'.$skin->path);
     }
 }

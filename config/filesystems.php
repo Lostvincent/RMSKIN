@@ -65,7 +65,7 @@ return [
         'skin' => [
             'driver'  => 'qiniu',
             'domains' => [
-                'default'   => 'oh6mz83w4.bkt.clouddn.com', //你的七牛域名
+                'default'   => 'http://oh6mz83w4.bkt.clouddn.com', //你的七牛域名
                 'https'     => '',         //你的HTTPS域名
                 'custom'    => 'www.rmskin.net',                //你的自定义域名
              ],
