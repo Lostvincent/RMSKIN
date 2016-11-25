@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Log;
 use Carbon;
 use Storage;
 use App\Models\Skin;
@@ -48,6 +49,7 @@ class HomeController extends Controller
                 'version'       =>  Carbon::now()->format('YmdHis'),
                 'is_available'  =>  0,
             ]);
+            Log::info(print_r($request, true));
             return response()->json(['code' => 200, 'key' => $request->key, 'hash' => $request->hash, 'skin_id' => $skin->id]);
         }
         return abort(404);
