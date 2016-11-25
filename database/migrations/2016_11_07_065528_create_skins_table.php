@@ -22,7 +22,7 @@ class CreateSkinsTable extends Migration
             $table->string('version');
             $table->boolean('is_available')->default(0);
             $table->string('code', 100)->nullable();
-            $table->enum('mime', ['rmskin', 'rar', 'zip', '7z']);
+            $table->string('path');
             $table->integer('views')->default(0)->unsigned();
             $table->integer('downloads')->default(0)->unsigned();
             $table->timestamps();

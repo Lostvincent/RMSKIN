@@ -42,7 +42,7 @@ var Custom = function() {
                             processData: false,
                             type: 'POST',
                             success: function(ret){
-                                alert(ret);
+                                console.log(ret);
                             }
                         });
                     }
