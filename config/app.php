@@ -169,6 +169,7 @@ return [
         //
         Bican\Roles\RolesServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        zgldh\QiniuStorage\QiniuFilesystemServiceProvider::class,
         
         /*
          * Application Service Providers...

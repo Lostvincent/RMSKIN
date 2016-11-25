@@ -62,6 +62,19 @@ return [
             'bucket' => 'your-bucket',
         ],
 
+        'skin' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'oh6mz83w4.bkt.clouddn.com', //你的七牛域名
+                'https'     => '',         //你的HTTPS域名
+                'custom'    => 'www.rmskin.net',                //你的自定义域名
+             ],
+            'access_key'=> 'PvnqQmmG5bhvGucXATJUOCnxf-aaQIZbKLJqHqWn',  //AccessKey
+            'secret_key'=> 'QBX8ZZ3TR7yxMqvblFG8WZbmbl0vwtgKvtkB55WX',  //SecretKey
+            'bucket'    => 'rmskin',  //Bucket名字
+            'notify_url'=> '',  //持久化处理回调地址
+        ],
+
     ],
 
 ];

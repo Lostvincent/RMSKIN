@@ -15,7 +15,12 @@ Route::get('/', function () {
     return view('portal.index');
 });
 
-Route::get('test', 'Admin\HomeController@index');
+Route::group(['prefix' => 'upload'], function () {
+    Route::get('/', ['uses' => 'Admin\HomeController@test', 'middleware' => 'auth']);
+    Route::get('token', ['uses' => 'Admin\HomeController@token', 'middleware' => 'auth']);
+    Route::post('callback', 'Admin\HomeController@callback');
+});
+
 
 Route::group(['namespace' => 'Portal'], function () {
     Route::get('skin', 'SkinController@index');
