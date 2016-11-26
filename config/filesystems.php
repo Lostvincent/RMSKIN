@@ -69,8 +69,8 @@ return [
                 'https'     => 'oh74y7qhm.qnssl.com',   //你的HTTPS域名
                 'custom'    => 'www.rmskin.net',                //你的自定义域名
              ],
-            'access_key'=> 'PvnqQmmG5bhvGucXATJUOCnxf-aaQIZbKLJqHqWn',  //AccessKey
-            'secret_key'=> 'QBX8ZZ3TR7yxMqvblFG8WZbmbl0vwtgKvtkB55WX',  //SecretKey
+            'access_key'=> env('access_key'),  //AccessKey
+            'secret_key'=> env('secret_key'),  //SecretKey
             'bucket'    => 'rmskin',  //Bucket名字
             'notify_url'=> '',  //持久化处理回调地址
         ],
