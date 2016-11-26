@@ -65,8 +65,8 @@ return [
         'skin' => [
             'driver'  => 'qiniu',
             'domains' => [
-                'default'   => 'https://oh74y7qhm.qnssl.com',   //你的七牛域名
-                'https'     => 'https://oh74y7qhm.qnssl.com',   //你的HTTPS域名
+                'default'   => 'oh74y7qhm.qnssl.com',   //你的七牛域名
+                'https'     => 'oh74y7qhm.qnssl.com',   //你的HTTPS域名
                 'custom'    => 'www.rmskin.net',                //你的自定义域名
              ],
             'access_key'=> 'PvnqQmmG5bhvGucXATJUOCnxf-aaQIZbKLJqHqWn',  //AccessKey

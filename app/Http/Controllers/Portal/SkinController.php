@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Portal;
 
 use Cache;
+use Storage;
 use App\Models\User;
 use App\Models\Skin;
 use Illuminate\Http\Request;
@@ -50,7 +51,8 @@ class SkinController extends Controller
         
         Cache::put('ip_'.$request->ip(), $times + 1, 15);
         $skin->increment('downloads');
-
-        return redirect(config('filesystems.disks.skin.domains.default').'/'.$skin->path);
+        
+        $disk = Storage::disk('skin');
+        return redirect($disk->getDriver()->privateDownloadUrl($skin->path, ['domain' => 'https', 'expires' => 3600])->getUrl());
     }
 }
