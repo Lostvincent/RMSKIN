@@ -133,6 +133,9 @@
               @endif
 
              <div class="text-right">
+               @if(!empty($skin) && !empty($skin->code))
+               <a href="{{ url('admin/skin/'.$skin->id.'/token_refresh') }}" type="button" class="btn btn-default ph25">刷新 Token</a>
+               @endif
                <button type="submit" class="btn btn-default ph25">提交</button>
              </div>
 

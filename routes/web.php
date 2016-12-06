@@ -15,10 +15,9 @@ Route::get('/', function () {
     return view('portal.index');
 });
 
-Route::group(['prefix' => 'upload'], function () {
-    Route::get('/', ['uses' => 'Admin\SkinController@test', 'middleware' => 'auth']);
-    Route::get('token', ['uses' => 'Admin\SkinController@token', 'middleware' => 'auth']);
-    Route::post('callback', 'Admin\SkinController@callback');
+Route::group(['prefix' => 'upload', 'namespace' => 'Admin'], function () {
+    Route::get('token', ['uses' => 'SkinController@token', 'middleware' => 'auth']);
+    Route::post('callback', 'SkinController@callback');
 });
 
 Route::group(['namespace' => 'Portal'], function () {
@@ -39,6 +38,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'leve
     Route::put('my', 'MyController@update');
 
     Route::resource('skin', 'SkinController', ['except' => ['store', 'destory']]);
+    Route::get('skin/{id}/token_refresh', 'SkinController@token_refresh');
     
     Route::group(['middleware' => 'role:admin'], function () {
         Route::resource('user', 'UserController');

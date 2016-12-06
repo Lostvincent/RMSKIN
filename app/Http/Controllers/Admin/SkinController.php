@@ -55,47 +55,6 @@ class SkinController extends Controller
         return view('admin.skin.show');
     }
 
-    // public function store(Request $request)
-    // {
-    //     $this->validate($request, [
-    //         'name'          =>  'required|alpha_dash',
-    //         'description'   =>  'string',
-    //         'cover'         =>  'image',
-    //         'version'       =>  'string',
-    //         'is_available'  =>  'boolean',
-    //         'is_public'     =>  'boolean',
-    //         'skin'          =>  'required|file|mimes:rar,7z,zip,rmskin'
-    //     ]);
-
-    //     $token = '';
-    //     if (!$request->has('is_public')) {
-    //         $token = str_random(100);
-    //     }
-
-    //     $file = $request->file('skin');
-
-    //     if ($file->isValid()) {
-    //         $skin = Skin::create([
-    //             'name'          =>  $request->input('name'),
-    //             'description'   =>  $request->input('description'),
-    //             'user_id'       =>  $request->user()->id,
-    //             'version'       =>  $request->has('version') ? $request->input('version') : Carbon::now()->format('YmdHis'),
-    //             'is_available'  =>  $request->input('is_available', 0),
-    //             'code'          =>  $token,
-    //             'mime'          =>  $file->getClientOriginalExtension()
-    //         ]);
-
-    //         if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
-    //             $cover = ImageTool::make($request->file('cover'));
-    //             $cover->resize(100, 100)->save(public_path('covers/'.$skin->id.'.jpg'));
-    //         }
-
-    //         $file->move(storage_path('app/public/skins'), $skin->id.'.'.$file->getClientOriginalExtension());
-    //     }
-
-    //     return redirect('admin/skin');
-    // }
-
     public function update(Request $request, $skin_id)
     {
         $this->validate($request, [
@@ -108,12 +67,7 @@ class SkinController extends Controller
 
         $skin = Skin::findOrFail($skin_id);
 
-        $token = $skin->code;
-        if (empty($token) && !$request->has('is_public')) {
-            $token = str_random(100);
-        } elseif ($request->has('is_public')) {
-            $token = '';
-        }
+        $token = $request->input('is_public', 0) ? '' : (!empty($skin->code) ? $skin->code : str_random(100));
 
         if ($skin->user_id == $request->user()->id || $request->user()->isRole('admin|helper')) {
             if ($request->hasFile('cover') && $request->file('cover')->isValid()) {
@@ -132,18 +86,6 @@ class SkinController extends Controller
 
         return redirect('admin/skin');
     }
-
-    // public function destory(Request $request, $skin_id)
-    // {
-    //     $skin = Skin::findOrFail($skin_id);
-    //     if ($skin->user_id == $request->user()->id) {
-    //         unlink(storage_path('app/public/skins'), $skin->id.'.'.$file->extension());
-    //         $skin->delete();
-    //     }
-
-    //     return redirect('admin/skin');
-    // }
-
 
     public function token(Request $request)
     {
@@ -170,5 +112,18 @@ class SkinController extends Controller
             return response()->json(['code' => 200, 'key' => $request->key, 'hash' => $request->hash, 'skin_id' => $skin->id]);
         }
         return abort(404);
+    }
+
+    public function token_refresh(Request $request, $skin_id)
+    {
+        $skin = Skin::findOrFail($skin_id);
+
+        if (($skin->user_id == $request->user()->id || $request->user()->isRole('admin')) && !empty($skin->code)) {
+            $skin->update([
+                'code'  =>  str_random(100)
+            ]);
+        }
+
+        return redirect()->back();
     }
 }

@@ -60,8 +60,6 @@ var Custom = function() {
             runGlobal();
             if (route == 'admin/skin/create') {
                 runUpload();
-            } else if (/^admin\/wechat\/menu$/.test(route)) {
-                runFancyTreeMenu();
             }
         }
 
