@@ -13,6 +13,7 @@
   <!--[if lt IE 9]>
     <script src="//cdn.jsdelivr.net/g/html5shiv@3.7.3,respond@1.4.2"></script>
   <![endif]-->
+  @yield('css')
 </head>
 
 <body class="admin-panels-page @yield('body_class')">
@@ -28,11 +29,6 @@
                 <span class="glyphicon glyphicon-home"></span>
               </a>
             </li>
-            @if(!empty($breadcrumbs))
-              @foreach($breadcrumbs as $breadcrumb)
-                <li class="crumb-trail">{{$breadcrumb}}</li>
-              @endforeach
-            @endif
           </ol>
         </div>
         <div class="topbar-right">
@@ -63,29 +59,12 @@
 <script src="{{ asset('assets/admin-tools/admin-forms/js/jquery-ui-datepicker.min.js') }}"></script>
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
+@yield('script')
 <script type="text/javascript">
 jQuery(document).ready(function() {
   "use strict";
   Core.init();
   Custom.init();
-  jQuery(document).pjax('a', '#content_wrapper');
-  jQuery(document).on('submit', 'form', function(event) {
-    jQuery.pjax.submit(event, '#content_wrapper');
-  });
-  jQuery(document).on('pjax:start', function() {
-    NProgress.start();
-  });
-  jQuery(document).on('pjax:end', function() {
-    Core.init();
-    Custom.init();
-    NProgress.done();
-  });
 });
-function toggleCheckbox(source, position) {
-  checkboxes = document.getElementsByClassName(position + '_check');
-  for(var i=0, n=checkboxes.length;i<n;i++) {
-    checkboxes[i].checked = source.checked;
-  }
-}
 </script>
 </html>
